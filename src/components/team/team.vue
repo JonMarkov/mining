@@ -29,8 +29,5 @@
   }
 </script>
 <style scoped lang="stylus">
-  .home-nav
-    .home-nav-link
-      flex 1
 
 </style>

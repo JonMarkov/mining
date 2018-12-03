@@ -1,24 +1,35 @@
 <template>
   <mt-tabbar v-model="selected" class="bottom">
     <mt-tab-item id="home">
-      <font-awesome-icon slot="icon" icon="home" size="2x"/>
-      首页
+      <div class="tab_icon">
+        <img src="../../assets/logo.png" style="width: 10px"/>
+        <p>首页</p>
+      </div>
+
     </mt-tab-item>
     <mt-tab-item id="mine">
-      <font-awesome-icon slot="icon" icon="database" size="2x"/>
-      我的矿机
+      <div class="tab_icon">
+        <img src="../../assets/logo.png" style="width: 10px"/>
+        <p>我的矿机</p>
+      </div>
     </mt-tab-item>
     <mt-tab-item id="team">
-      <font-awesome-icon slot="icon" icon="tag"   size="2x"/>
-      我的团队
+      <div class="tab_icon">
+        <img src="../../assets/logo.png" style="width: 10px"/>
+        <p>我的团队</p>
+      </div>
     </mt-tab-item>
     <mt-tab-item id="trade">
-      <font-awesome-icon slot="icon" icon="user" size="2x"/>
-      交易平台
+      <div class="tab_icon">
+        <img src="../../assets/logo.png" style="width: 10px"/>
+        <p>我的矿机</p>
+      </div>
     </mt-tab-item>
     <mt-tab-item id="vipcenter">
-      <font-awesome-icon slot="icon" icon="user" size="2x"/>
-      会员中心
+      <div class="tab_icon">
+        <img src="../../assets/logo.png" style="width: 10px"/>
+        <p>我的矿机</p>
+      </div>
     </mt-tab-item>
   </mt-tabbar>
 </template>
@@ -49,4 +60,13 @@
 </script>
 
 <style scoped lang="stylus">
+  .tab_icon{
+    display flex;
+    flex-direction:column;
+    justify-content center;
+    align-items center
+  }
+  .tab_icon img{
+    width 20px
+  }
 </style>
