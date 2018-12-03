@@ -43,7 +43,7 @@
       <div class="com_title">
         <p><img src="../../assets/blue.png"/> 矿机商城</p>
       </div>
-      <ComHome :comList="comList"></ComHome>
+      <ComHome :comList="comList" v-if="comList.length"></ComHome>
     </div>
     <!--公用底部内容-->
     <bottomNav :select="selected"></bottomNav>
@@ -72,32 +72,7 @@
       return {
         selected: 'home',
         topBatten: "首页",
-        comList: [
-          {
-            mac:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2607232321,3507637558&fm=26&gp=0.jpg',
-            title:'1233',
-            time:'2018',
-            Price:'115'
-          },
-          {
-            mac:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2607232321,3507637558&fm=26&gp=0.jpg',
-            title:'1233',
-            time:'2019',
-            Price:'105'
-          },
-          {
-            mac:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2607232321,3507637558&fm=26&gp=0.jpg',
-            title:'1233',
-            time:'2019',
-            Price:'105'
-          },
-          {
-            mac:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2607232321,3507637558&fm=26&gp=0.jpg',
-            title:'1233',
-            time:'2019',
-            Price:'105'
-          }
-        ],
+        comList: [],
         number: 1,
       }
     },
@@ -116,9 +91,10 @@
       // 请求接口
       async goToHome() {
         let param = {
-          service: 'exchangeHall'
+          service: 'goodsInfoList'
         };
         let res = await api.PostHome(param);
+        this.comList = res.data.goodsInfoList;
         console.log(res)
       }
     }

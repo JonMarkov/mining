@@ -1,10 +1,10 @@
 <template>
   <div class="com">
     <div class="com_con" v-for="item in com_list">
-      <img :src="item.mac"/>
-      <p>{{item.title}}</p>
-      <p>{{item.time}}</p>
-      <p>{{item.Price}}</p>
+      <img :src="item.imgUrl"/>
+      <p>{{item.goodsName}}</p>
+      <p>{{item.goodsName}}</p>
+      <p>{{item.goodsName}}</p>
       <mt-button>立即使用</mt-button>
     </div>
   </div>
@@ -18,6 +18,7 @@
       comList: {
         type: Array,
         default: function () {
+          console.log('123')
           return []
         }
       }
