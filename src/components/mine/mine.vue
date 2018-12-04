@@ -176,7 +176,7 @@
     color red
   }
 
-  .am_content {
+  .am_content button{
     border-radius: 5px
   }
 </style>
