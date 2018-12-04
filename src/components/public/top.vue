@@ -28,7 +28,7 @@
     left: 0;
     z-index: 999;
     width: 100%;
-    height: 49px;
+    height: 45px;
     background-color: #3d9ff6;
     color: #fff;
   }

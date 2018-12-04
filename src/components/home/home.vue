@@ -2,33 +2,33 @@
   <div class="home">
     <!--头部banner图-->
     <div class="home_img">
-      <img src="../../assets/ywts.jpg"/>
+      <img src="../../assets/banner.png"/>
     </div>
     <!--频道列表-->
     <div class="home-nav">
       <mt-navbar>
         <div class="home-nav-link">
-          <mt-tab-item>
-            <font-awesome-icon slot="icon" icon="bars" size="2x"/>
-            <span>我要签到</span>
+          <mt-tab-item @click.native="handleClick">
+            <img src="../../assets/sign.png"/>
+            <span style="margin-top: 1rem">我要签到</span>
           </mt-tab-item>
         </div>
         <div class="home-nav-link">
           <mt-tab-item>
-            <font-awesome-icon slot="icon" icon="trophy" size="2x"/>
-            <span>新闻公告</span>
+            <img src="../../assets/news.png"/>
+            <span style="margin-top: 1rem">新闻公告</span>
           </mt-tab-item>
         </div>
         <div class="home-nav-link" @click="goToHome()">
           <mt-tab-item>
-            <font-awesome-icon slot="icon" icon="file-alt" size="2x"/>
-            <span>推广二维码</span>
+            <img src="../../assets/QRcode.png"/>
+            <span style="margin-top: 1rem">推广二维码</span>
           </mt-tab-item>
         </div>
         <div class="home-nav-link" @click="goToPageMessage()">
           <mt-tab-item>
-            <font-awesome-icon slot="icon" icon="comment-dots" size="2x"/>
-            <span>在线客服</span>
+            <img src="../../assets/customer.png"/>
+            <span style="margin-top: 1rem">在线客服</span>
           </mt-tab-item>
         </div>
       </mt-navbar>
@@ -49,6 +49,7 @@
     <bottomNav :select="selected"></bottomNav>
     <!--公用头部-->
     <TopFooter :topBatten="topBatten"></TopFooter>
+    <div v-if="ma">womenwomenwomen</div>
   </div>
 </template>
 <script>
@@ -74,6 +75,7 @@
         topBatten: "首页",
         comList: [],
         number: 1,
+        ma: false
       }
     },
     // 进入页面开始调用 （async用于声明一个函数是异步的）
@@ -82,6 +84,10 @@
       await this.goToHome()
     },
     methods: {
+      handleClick: function () {
+        console.log('123')
+        this.ma = true
+      },
       // 跳转路由
       goToPageMessage: function () {
         this.$router.push({
@@ -101,6 +107,7 @@
   }
 </script>
 <style scoped lang="stylus">
+
   .home-nav
     .home-nav-link
       flex 1
@@ -113,21 +120,26 @@
   .home_img img {
     width 100%
   }
-  .home-nav{
-    margin-top 10px
- }
-  .home-num{
+
+  .home-num {
     padding 10px;
-    display:flex;
-    flex-direction:row;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
   }
-  .home-com{
-    padding 10px;
-    background :#fff
+
+  .home-com {
+    padding 8px;
+    background: #fff;
+    margin-bottom 60px
   }
-  .com_title img{
-    width :8px;
-    background :red
+
+  .com_title img {
+    width: 4px;
+    height: 14px;
+    margin-top: -2px;
+  }
+  .home-nav-link img {
+    width: 3rem
   }
 </style>
