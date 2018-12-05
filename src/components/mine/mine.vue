@@ -36,15 +36,8 @@
     </div>
     <!--矿机商城tab-->
     <div class="divTab" v-show="nowIndex===1">
-      <div class="am-g am_title">
-        <div class="ma-1">到期矿机</div>
-        <div class="ma-2">运行时间</div>
-        <div class="ma-3">已领取</div>
-        <div class="ma-4">状态</div>
-        <div class="ma-5">操作</div>
-      </div>
       <!--内容-->
-      <Layer :layerList="normaList" v-if="normaList.length"></Layer>
+      <ComHome :comList="comList" v-if="comList.length"></ComHome>
     </div>
     <!--一键领取按钮-->
     <div class="mine_btn">
@@ -68,13 +61,16 @@
   import Layer from '../public/layer'
   // 引用请求后台数据的公共方法
   import api from '../../api/index'
+  // 引入商品组件
+  import ComHome from '../public/com'
 
   export default {
     name: 'mine',
     components: {
       bottomNav,
       TopFooter,
-      Layer
+      Layer,
+      ComHome
     },
     data() {
       return {
@@ -89,7 +85,9 @@
         // 到期矿机
         layerList: [],
         // 正常矿机
-        normaList: []
+        normaList: [],
+        //商品列表
+        comList: []
       }
     },
     // 进入页面开始调用 （async用于声明一个函数是异步的）
@@ -99,6 +97,7 @@
       await this.goToExpire()
       // 请求正常矿机函数执行
       await this.goToNormal()
+      await this.goToHome()
     },
     methods: {
       // tab标签切换函数
@@ -122,6 +121,15 @@
         let res = await api.PostHome(param);
         this.normaList = res.data.goodsInfoList;
         console.log(res)
+      },
+      // 请求接口
+      async goToHome() {
+        let param = {
+          service: 'goodsInfoList'
+        };
+        let res = await api.PostHome(param);
+        this.comList = res.data.goodsInfoList;
+        console.log(res)
       }
     }
   }
@@ -133,7 +141,7 @@
 
   .mine {
     margin-top 50px;
-    color :#071328
+    color: #071328
   }
 
   .tabs {
@@ -161,7 +169,8 @@
 
   .divTab {
     width: 100%;
-    font-size 12px
+    font-size 12px;
+    margin-top 4px
   }
 
   .am_title {
@@ -258,7 +267,7 @@
     width: 96%;
     padding: .3em 1em;
     border-radius: 5px;
-    background :#7aa1da
+    background: #7aa1da
   }
 
   .mine_text {
