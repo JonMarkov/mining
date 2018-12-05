@@ -1,12 +1,30 @@
 <template>
   <div class="mine">
+    <!--tab选项-->
     <ul class="tabs">
       <li class="li-tab" v-for="(item,index) in tabsParam"
           @click="toggleTabs(index)"
           :class="{active:index==nowIndex}">{{item}}
       </li>
     </ul>
+    <!--我的矿机tab-->
     <div class="divTab" v-show="nowIndex===0">
+      <!--正常矿机内容-->
+      <div class="com_title">
+        <p><img src="../../assets/blue.png"/> 正常矿机</p>
+      </div>
+      <div class="am-g am_title">
+        <div class="ma-1">正常矿机</div>
+        <div class="ma-2">运行时间</div>
+        <div class="ma-3">已领取</div>
+        <div class="ma-4">状态</div>
+        <div class="ma-5">操作</div>
+      </div>
+      <Layer :layerList="layerList" v-if="layerList.length"></Layer>
+      <!--到期矿机内容-->
+      <div class="com_title">
+        <p><img src="../../assets/blue.png"/> 到期矿机</p>
+      </div>
       <div class="am-g am_title">
         <div class="ma-1">到期矿机</div>
         <div class="ma-2">运行时间</div>
@@ -14,9 +32,9 @@
         <div class="ma-4">状态</div>
         <div class="ma-5">操作</div>
       </div>
-      <!--内容-->
-      <Layer :layerList="layerList" v-if="layerList.length"></Layer>
+      <Layer :layerList="normaList" v-if="normaList.length"></Layer>
     </div>
+    <!--矿机商城tab-->
     <div class="divTab" v-show="nowIndex===1">
       <div class="am-g am_title">
         <div class="ma-1">到期矿机</div>
@@ -27,6 +45,13 @@
       </div>
       <!--内容-->
       <Layer :layerList="normaList" v-if="normaList.length"></Layer>
+    </div>
+    <!--一键领取按钮-->
+    <div class="mine_btn">
+      <button type="button" class="am-btn am-btn-primary">一键领取</button>
+    </div>
+    <div class="mine_text">
+      <p class="text_title">总价值：15币</p>
     </div>
     <!--公用底部内容-->
     <bottomNav :select="selected"></bottomNav>
@@ -58,7 +83,7 @@
         // 公用头部title
         topBatten: "我的矿机",
         // tab标签名
-        tabsParam: ['正常矿机', '到期矿机'],
+        tabsParam: ['我的矿机', '矿机商城'],
         // 默认选中tab
         nowIndex: 0,
         // 到期矿机
@@ -107,7 +132,8 @@
       flex 1
 
   .mine {
-    margin-top 50px
+    margin-top 50px;
+    color :#071328
   }
 
   .tabs {
@@ -120,7 +146,7 @@
   }
 
   .active {
-    border-bottom: 3px solid #3d9ff6;
+    border-bottom: 3px solid #a1c8ee;
   }
 
   .li-tab {
@@ -139,8 +165,7 @@
   }
 
   .am_title {
-    margin-top 10px;
-    background: #3d9ff6;
+    background: #b5dcef;
     padding 10px 0px;
     display flex;
     flex-direction: row
@@ -212,5 +237,52 @@
 
   .am_content button {
     border-radius: 5px
+  }
+
+  .mine_btn {
+    width 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: .5rem
+  }
+
+  .mine_btn button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 96%;
+    padding: .3em 1em;
+    border-radius: 5px;
+    background :#7aa1da
+  }
+
+  .mine_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0rem 1.3rem;
+    color: #3d9ff6
+  }
+
+  .text_title {
+    font-weight: bold
+  }
+
+  .com_title {
+    padding: .3rem;
+    font-size 14px;
+    font-weight: bold
+  }
+
+  .com_title img {
+    width: 4px;
+    height: 14px;
+    margin-top: -2px;
   }
 </style>

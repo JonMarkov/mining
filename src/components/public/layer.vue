@@ -43,7 +43,7 @@
 <style scoped>
   .am_content {
     background: #fff;
-    border: 2px solid #3d9ff6;
+    border: 2px solid #b5dcef;
     border-top: 0px solid;
     /*height: 44px;*/
     display: flex;
@@ -107,6 +107,7 @@
   }
 
   .am_content button {
-    border-radius: 5px
-  }
+    border-radius: 5px;
+    background: #7aa1da;
+ }
 </style>

@@ -66,6 +66,9 @@
 </script>
 
 <style scoped lang="stylus">
+  .bottom{
+    color #929292
+  }
   .tab_icon {
     line-height 20px;
     display flex;
