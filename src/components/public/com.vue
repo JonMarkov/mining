@@ -8,7 +8,6 @@
       <button class="itemBtn">购买</button>
     </div>
   </div>
-
 </template>
 
 <script>
