@@ -10,14 +10,14 @@
       <div class="ma-2">注册人数</div>
     </div>
     <div class="am_content" v-for="item in teamList">
-      <div class="ma-2">136****7039</div>
-      <div class="ma-3">刘*东</div>
-      <div class="ma-2">未认证</div>
-      <div class="ma-3">0</div>
-      <div class="ma-2">0</div>
-      <div class="ma-2">0</div>
+      <div class="ma-2">{{item.login_name}}</div>
+      <div class="ma-3">{{item.real_name}}</div>
+      <div class="ma-2">{{item.is_authentication}}</div>
+      <div class="ma-3">{{item.direct_sum}}</div>
+      <div class="ma-2">{{item.team_power}}</div>
+      <div class="ma-2">{{item.direct_sum}}</div>
     </div>
-    <div class="mine_text" style="margin-top: 5px">
+    <div class="mine_text" style="margin-top: 5px;margin-bottom:60px">
       <p class="text_title">共2条记录 第1页/共1页</p>
     </div>
     <!--公用底部内容-->
@@ -57,10 +57,11 @@
       // 请求接口-我的直推
       async goToTeam() {
         let param = {
-          service: 'goodsInfoList'
+          service: 'directInvitation',
+          user_id:'112'
         };
         let res = await api.PostHome(param);
-        this.teamList = res.data.goodsInfoList;
+        this.teamList = res.data.direct_list;
         console.log(res)
       }
     }
@@ -107,7 +108,8 @@
     background: #b5dcef;
     padding 10px 0px;
     display flex;
-    flex-direction: row
+    flex-direction: row;
+    color #fff
   }
 
   .am_content {

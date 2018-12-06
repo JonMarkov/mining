@@ -20,7 +20,10 @@
         <div class="ma-4">状态</div>
         <div class="ma-5">操作</div>
       </div>
-      <Layer :layerList="layerList" v-if="layerList.length"></Layer>
+      <Layer :layerList="normaList" v-if="normaList.length"></Layer>
+    </div>
+    <!--到期矿机tab-->
+    <div class="divTab" v-show="nowIndex===1">
       <!--到期矿机内容-->
       <div class="com_title">
         <p><img src="../../assets/blue.png"/> 到期矿机</p>
@@ -32,12 +35,8 @@
         <div class="ma-4">状态</div>
         <div class="ma-5">操作</div>
       </div>
-      <Layer :layerList="normaList" v-if="normaList.length"></Layer>
-    </div>
-    <!--矿机商城tab-->
-    <div class="divTab" v-show="nowIndex===1">
-      <!--内容-->
-      <ComHome :comList="comList" v-if="comList.length"></ComHome>
+
+      <Layer :layerList="layerList" v-if="layerList.length"></Layer>
     </div>
     <!--一键领取按钮-->
     <div class="mine_btn">
@@ -61,16 +60,13 @@
   import Layer from '../public/layer'
   // 引用请求后台数据的公共方法
   import api from '../../api/index'
-  // 引入商品组件
-  import ComHome from '../public/com'
 
   export default {
     name: 'mine',
     components: {
       bottomNav,
       TopFooter,
-      Layer,
-      ComHome
+      Layer
     },
     data() {
       return {
@@ -79,7 +75,7 @@
         // 公用头部title
         topBatten: "我的矿机",
         // tab标签名
-        tabsParam: ['我的矿机', '矿机商城'],
+        tabsParam: ['正常矿机', '到期矿机'],
         // 默认选中tab
         nowIndex: 0,
         // 到期矿机
@@ -97,7 +93,6 @@
       await this.goToExpire()
       // 请求正常矿机函数执行
       await this.goToNormal()
-      await this.goToHome()
     },
     methods: {
       // tab标签切换函数
@@ -107,30 +102,26 @@
       // 请求接口-到期矿机函数定义
       async goToExpire() {
         let param = {
-          service: 'goodsInfoList'
+          service: 'userMinerList',
+          user_id:'83',
+          status:'1'
+
         };
         let res = await api.PostHome(param);
-        this.layerList = res.data.goodsInfoList;
+        this.layerList = res.data.miner_list;
         console.log(res)
       },
       // 请求接口-正常矿机函数定义
       async goToNormal() {
         let param = {
-          service: 'goodsInfoList'
+          service: 'userMinerList',
+          user_id:'112',
+          status:'0'
         };
         let res = await api.PostHome(param);
-        this.normaList = res.data.goodsInfoList;
+        this.normaList = res.data.miner_list;
         console.log(res)
       },
-      // 请求接口
-      async goToHome() {
-        let param = {
-          service: 'goodsInfoList'
-        };
-        let res = await api.PostHome(param);
-        this.comList = res.data.goodsInfoList;
-        console.log(res)
-      }
     }
   }
 </script>
@@ -177,7 +168,8 @@
     background: #b5dcef;
     padding 10px 0px;
     display flex;
-    flex-direction: row
+    flex-direction: row;
+    color #fff
   }
 
   .am_content {
@@ -199,6 +191,7 @@
   }
 
   .img_title {
+    margin-left:.3rem;
     display flex;
     flex-direction: column;
     justify-content: center;
@@ -249,6 +242,7 @@
   }
 
   .mine_btn {
+    margin-bottom 36px;
     width 100%;
     display: flex;
     flex-direction: row;

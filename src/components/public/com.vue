@@ -1,11 +1,11 @@
 <template>
   <div class="com">
     <div class="com_con" v-for="item in com_list">
-      <img :src="item.imgUrl"/>
-      <p class="itemName">{{item.goodsName}}</p>
-      <p class="itemDes">产量/每小时：{{item.createDate}}</p>
+      <img :src="item.miner_pic"/>
+      <p class="itemName">{{item.miner_name}}</p>
+      <p class="itemDes">产量/每小时：{{item.output}}</p>
       <p class="itemPrice">价格：{{item.price}}矿池钱包</p>
-      <button class="itemBtn">购买</button>
+      <button class="itemBtn am-btn am-btn-primary am-btn-xs">立即租用</button>
     </div>
   </div>
 </template>
@@ -33,46 +33,67 @@
 </script>
 
 <style scoped>
-  .com {
+  .com{
     width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex: 1;
-    flex-wrap: wrap;
-    position: relative;
-    justify-content: center;
-    align-items: center;
+    margin-top: .5rem;
+    font-size: 12px;
   }
-
-  .com_con {
-    flex: 1;
+  .com_con{
+    width: 50%;
     float: left;
-    position: relative;
-    /*height: 10rem;*/
-    line-height: 2rem;
     text-align: center;
-    vertical-align: middle;
-    margin-top: 0.4rem;
-    justify-content: center;
-
+    line-height: 2.3rem;
+    padding: .4rem;
   }
-
-  .com_con img {
-    display: block;
-    width: 16.3rem;
-    height: 10rem;
-    line-height: 0.146666rem;
-    text-align: center;
+  .com_con img{
+    width: 96%;
   }
-
-  .itemName {
-    font-weight: bold;
+  .itemPrice{
+    color: #7aa1da;
   }
   .itemBtn{
-    width: 10rem;
-    padding: 0.2rem;
-    border-radius: 5px;
-    background: #7AA1DA;
-    box-shadow:0px 0 0px 0px #ccc
+    border-radius:.5rem ;
   }
+  /*.com {*/
+    /*width: 100%;*/
+    /*overflow: hidden;*/
+    /*display: flex;*/
+    /*flex: 1;*/
+    /*flex-wrap: wrap;*/
+    /*position: relative;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+  /*}*/
+
+  /*.com_con {*/
+    /*flex: 1;*/
+    /*float: left;*/
+    /*position: relative;*/
+    /*!*height: 10rem;*!*/
+    /*line-height: 2rem;*/
+    /*text-align: center;*/
+    /*vertical-align: middle;*/
+    /*margin-top: 0.4rem;*/
+    /*justify-content: center;*/
+
+  /*}*/
+
+  /*.com_con img {*/
+    /*display: block;*/
+    /*width: 16.3rem;*/
+    /*height: 10rem;*/
+    /*line-height: 0.146666rem;*/
+    /*text-align: center;*/
+  /*}*/
+
+  /*.itemName {*/
+    /*font-weight: bold;*/
+  /*}*/
+  /*.itemBtn{*/
+    /*width: 10rem;*/
+    /*padding: 0.2rem;*/
+    /*border-radius: 5px;*/
+    /*background: #7AA1DA;*/
+    /*box-shadow:0px 0 0px 0px #ccc*/
+  /*}*/
 </style>

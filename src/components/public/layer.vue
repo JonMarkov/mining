@@ -2,15 +2,15 @@
   <div>
     <div class="am_content" v-for="item in layer_list">
       <div class="ma-1 am_img">
-        <img src="../../assets/logo.png"/>
+        <img :src="item.miner_pic"/>
         <div class="img_title">
-          <p>123</p>
-          <p>预计0.003/小时</p>
+          <p>{{item.miner_name}}</p>
+          <p>预计{{item.output}}/小时</p>
         </div>
       </div>
-      <div class="ma-2">4800/4800</div>
+      <div class="ma-2">{{item.dig_time}}/{{item.validity}}</div>
       <div class="ma-3">3,7587</div>
-      <div class="ma-4 img_status">到期</div>
+      <div class="ma-4" :class="item.status == '1'?'img_status':''">{{item.status == '1'?'到期':'正常'}}</div>
       <div class="ma-5">
         <button class="am-btn am-btn-primary am-btn-xs">查看详情</button>
       </div>
@@ -45,10 +45,11 @@
     background: #fff;
     border: 2px solid #b5dcef;
     border-top: 0px solid;
-    /*height: 44px;*/
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0rem .4rem;
   }
 
   .am_content img {
@@ -61,6 +62,7 @@
   }
 
   .img_title {
+    margin-left: .3rem;
     display: flex;
     flex-direction: column;
     justify-content: center;

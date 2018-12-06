@@ -34,10 +34,10 @@
       </mt-navbar>
     </div>
     <!--数据显示-->
-    <div class="home-num">
-      <p>YUE发行总量：{{number}}</p>
-      <p>已开采数量：{{number}}</p>
-    </div>
+    <!--<div class="home-num">-->
+      <!--<p>YUE发行总量：{{number}}</p>-->
+      <!--<p>已开采数量：{{number}}</p>-->
+    <!--</div>-->
     <!--商品列表-->
     <div class="home-com">
       <div class="com_title">
@@ -81,6 +81,7 @@
     // 进入页面开始调用 （async用于声明一个函数是异步的）
     async created() {
       // 等待异步完成调用 （await只能在async函数中使用）
+      // 请求矿机商城接口执行
       await this.goToHome()
     },
     methods: {
@@ -88,19 +89,19 @@
         console.log('123')
         this.ma = true
       },
-      // 跳转路由
+      // 跳转路由-测试
       goToPageMessage: function () {
         this.$router.push({
           name: 'message'
         })
       },
-      // 请求接口
+      // 请求接口-矿机商城
       async goToHome() {
         let param = {
-          service: 'goodsInfoList'
+          service: 'minerInfoList'
         };
         let res = await api.PostHome(param);
-        this.comList = res.data.goodsInfoList;
+        this.comList = res.data.miner_list;
         console.log(res)
       }
     }
@@ -129,9 +130,12 @@
   }
 
   .home-com {
+    margin-top .4rem;
     padding 8px;
     background: #fff;
-    margin-bottom 60px
+    margin-bottom 60px;
+    display: flex;
+    flex-direction: column;
   }
 
   .com_title img {

@@ -33,14 +33,28 @@
       <div class="com_title">
         <p><img src="../../assets/blue.png"/> 申请买入</p>
       </div>
+      <div class="com_buy">
+        <div class="buy_select">
+          <p class="num_ma">请选择数量</p>
+          <!--<select v-model="selectedE">-->
+          <!--<option v-for="item in items" v-bind:value="item.value">{{item.text}}</option>-->
+          <!--</select>-->
+          <p><input class="am-form-field am-input-sm" type="text" placeholder="请输入购买数量"></p>
+        </div>
+        <div class="buy_price">
+          <p class="num_ma">单价</p>
+          <p>1000</p>
+        </div>
+      </div>
+
       <!--第二栏-->
       <div class="com_title">
         <p><img src="../../assets/blue.png"/> 我的买入列表</p>
       </div>
       <div class="am-g am_title">
-        <div class="ma-1">时间</div>
-        <div class="ma-2">数量</div>
-        <div class="ma-1">单价</div>
+        <div class="ma-5">时间</div>
+        <div class="ma-6">数量</div>
+        <div class="ma-6">单价</div>
         <div class="ma-5">合计金额</div>
         <div class="ma-5">状态</div>
         <div class="ma-5">操作</div>
@@ -58,9 +72,9 @@
         <p><img src="../../assets/blue.png"/> 我的买入交易列表列表</p>
       </div>
       <div class="am-g am_title">
-        <div class="ma-1">时间</div>
-        <div class="ma-2">数量</div>
-        <div class="ma-1">单价</div>
+        <div class="ma-5">时间</div>
+        <div class="ma-6">数量</div>
+        <div class="ma-6">单价</div>
         <div class="ma-5">合计金额</div>
         <div class="ma-5">状态</div>
         <div class="ma-5">操作</div>
@@ -81,9 +95,9 @@
         <p><img src="../../assets/blue.png"/> 交易大厅</p>
       </div>
       <div class="am-g am_title">
-        <div class="ma-1">时间</div>
-        <div class="ma-2">数量</div>
-        <div class="ma-1">单价</div>
+        <div class="ma-5">时间</div>
+        <div class="ma-6">数量</div>
+        <div class="ma-6">单价</div>
         <div class="ma-5">合计金额</div>
         <div class="ma-5">状态</div>
         <div class="ma-5">操作</div>
@@ -101,9 +115,9 @@
         <p><img src="../../assets/blue.png"/> 我的出售交易列表</p>
       </div>
       <div class="am-g am_title">
-        <div class="ma-1">时间</div>
-        <div class="ma-2">数量</div>
-        <div class="ma-1">单价</div>
+        <div class="ma-5">时间</div>
+        <div class="ma-6">数量</div>
+        <div class="ma-6">单价</div>
         <div class="ma-5">合计金额</div>
         <div class="ma-5">状态</div>
         <div class="ma-5">操作</div>
@@ -139,6 +153,8 @@
     },
     data() {
       return {
+        items: [{text: 'A', value: 'a'}, {text: 'B', value: 'b'}, {text: 'C', value: 'c'}],
+        selectedE: '',
         selected: 'trade',
         topBatten: "交易平台",
         // tab标签名
@@ -241,7 +257,7 @@
   }
 
   .active {
-    border-bottom: 3px solid #3d9ff6;
+    border-bottom: 3px solid #b5dcef;
   }
 
   .li-tab {
@@ -268,11 +284,12 @@
 
   .divTab {
     width: 100%;
-    font-size 12px
+    font-size 12px;
+    margin-bottom 60px
   }
 
   .am_title {
-    background: #3d9ff6;
+    background: #b5dcef;
     padding 10px 0px;
     display flex;
     flex-direction: row;
@@ -329,4 +346,60 @@
     align-items: center;
   }
 
+  .ma-6 {
+    width 10%;
+    display flex;
+    justify-content center;
+    align-items center
+  }
+
+  .com_buy {
+    display flex;
+    flex-direction column;
+    background: #fff;
+    padding: .6rem 1.5rem;
+    line-height: 2rem;
+    font-size 1rem
+  }
+
+  .buy_select {
+    display flex;
+    flex-direction row;
+    justify-content: space-between;
+    width 80%
+  }
+
+  .buy_select select {
+    width: 100px;
+    border-radius: 6px;
+    padding: 0px 6px;
+    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+    border: solid 1px #b5dcef;
+    /*很关键：将默认的select选择框样式清除*/
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    /*在选择框的最右侧中间显示小箭头图片*/
+    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+    /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+    padding-right: 14px;
+  }
+
+  .buy_price {
+    display flex;
+    flex-direction row;
+    width 80%
+  }
+
+  .am-input-sm {
+    font-size 0.4rem !important
+  }
+
+  .buy_select input {
+    border-radius: 5px
+  }
+
+  .num_ma {
+    width 50%
+  }
 </style>

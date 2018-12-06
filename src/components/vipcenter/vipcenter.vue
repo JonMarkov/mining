@@ -6,10 +6,9 @@
         <img src="../../assets/logo.png"/>
       </div>
       <div class="center_right">
-        <p>用户编号： 13683187039</p>
-        <p>用户等级： 一级矿工</p>
-        <p>直推人数： 0</p>
-        <p>团队人数： 0</p>
+        <p>用户姓名： {{centerList.real_name}}</p>
+        <p>用户等级： {{centerList.user_rank}}级矿工</p>
+        <p>直推人数： {{centerList.direct_inferiors}}</p>
       </div>
     </div>
     <!--个人信息数据部分-->
@@ -17,52 +16,56 @@
       <!--个人数据信息-1-->
       <div class="vip_data">
         <div class="data_left">
-          <p>2.1980枚</p>
+          <p>{{centerList.coin_balance}}枚</p>
           <p>可售余额</p>
         </div>
         <div class="data_guide"></div>
         <div class="data_center">
-          <p>2.1980枚</p>
-          <p>可售余额</p>
+          <p>{{centerList.salable_quota}}</p>
+          <p>可售额度</p>
         </div>
         <div class="data_guide"></div>
         <div class="data_right">
-          <p>2.1980枚</p>
-          <p>可售余额</p>
+          <p>{{centerList.miner_total}}</p>
+          <p>累计产量</p>
         </div>
       </div>
       <!--个人数据信息-2-->
       <div class="vip_data">
         <div class="data_left">
-          <p>2.1980枚</p>
-          <p>可售余额</p>
+          <p>{{centerList.reward}}枚</p>
+          <p>奖金累计</p>
         </div>
         <div class="data_guide"></div>
         <div class="data_center">
-          <p>2.1980枚</p>
-          <p>可售余额</p>
+          <p>{{centerList.release_amount}}枚</p>
+          <p>总收益</p>
         </div>
         <div class="data_guide"></div>
         <div class="data_right">
-          <p>2.1980枚</p>
-          <p>可售余额</p>
+          <p>{{centerList.miner_num}}台</p>
+          <p>有效矿机</p>
         </div>
       </div>
       <!--个人数据信息-3-->
       <div class="vip_data">
         <div class="data_left">
-          <p>2.1980枚</p>
-          <p>可售余额</p>
+          <p>{{centerList.mineral_wallet}}枚</p>
+          <p>矿池钱包</p>
         </div>
         <div class="data_guide"></div>
         <div class="data_center">
-          <p>2.1980枚</p>
-          <p>可售余额</p>
+          <p>{{centerList.mineral_assets}}枚</p>
+          <p>矿池资产</p>
         </div>
         <div class="data_guide"></div>
         <div class="data_right">
-          <p>2.1980枚</p>
-          <p>可售余额</p>
+          <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </p>
+          <p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </p>
         </div>
       </div>
     </div>
@@ -112,7 +115,7 @@
       </div>
     </div>
     <!--表格-->
-    <div></div>
+
     <!--公用底部内容-->
     <bottomNav :select="selected"></bottomNav>
     <!--公用头部-->
@@ -124,19 +127,39 @@
   import bottomNav from '../public/bottom'
   // 引入公用头部组件
   import TopFooter from '../public/top'
-
+  // 引用请求后台数据的公共方法
+  import api from '../../api/index'
   export default {
     name: 'vipcenter',
     components: {
       bottomNav,
-      TopFooter
+      TopFooter,
     },
     data() {
       return {
         selected: 'vipcenter',
         topBatten: "会员中心",
+        centerList:{}
       }
     },
+    // 进入页面开始调用 （async用于声明一个函数是异步的）
+    async created() {
+      // 等待异步完成调用 （await只能在async函数中使用）
+      // 请求个人中心函数执行
+      await this.goToCenter()
+    },
+    methods:{
+      // 请求接口-到期矿机函数定义
+      async goToCenter() {
+        let param = {
+          service: 'userCenter',
+          user_id:'112',
+        };
+        let res = await api.PostHome(param);
+        this.centerList = res.data;
+        console.log(res)
+      },
+    }
 
 
   }
