@@ -129,6 +129,7 @@
   import TopFooter from '../public/top'
   // 引用请求后台数据的公共方法
   import api from '../../api/index'
+
   export default {
     name: 'vipcenter',
     components: {
@@ -139,21 +140,27 @@
       return {
         selected: 'vipcenter',
         topBatten: "会员中心",
-        centerList:{}
+        centerList: {}
       }
     },
     // 进入页面开始调用 （async用于声明一个函数是异步的）
     async created() {
       // 等待异步完成调用 （await只能在async函数中使用）
+      // 请求本地缓存userId函数执行
+      await this.getUserId()
       // 请求个人中心函数执行
       await this.goToCenter()
     },
-    methods:{
+    methods: {
+      // 获取本地缓存的user_id
+      async getUserId() {
+        this.userId = localStorage.getItem('user_id');
+      },
       // 请求接口-到期矿机函数定义
       async goToCenter() {
         let param = {
           service: 'userCenter',
-          user_id:'112',
+          user_id: this.userId,
         };
         let res = await api.PostHome(param);
         this.centerList = res.data;

@@ -17,9 +17,29 @@ const router = new Router({
         title: 'HelloWorld'
       }
     },
-    // 我的首页
+    // 登录页面
     {
       path: '/',
+      name: 'login',
+      component: () => import('@/components/login/login'),
+      meta: {
+        auth: needAuth,
+        title: '登录'
+      }
+    },
+    // 注册页面
+    {
+      path: '/signUp',
+      name: 'signUp',
+      component: () => import('@/components/signUp/signUp'),
+      meta: {
+        auth: needAuth,
+        title: '注册新用户'
+      }
+    },
+    // 我的首页
+    {
+      path: '/home',
       name: 'home',
       component: () => import('@/components/home/home'),
       meta: {

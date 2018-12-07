@@ -89,12 +89,18 @@
     // 进入页面开始调用 （async用于声明一个函数是异步的）
     async created() {
       // 等待异步完成调用 （await只能在async函数中使用）
+      // 请求本地缓存userId函数执行
+      await this.getUserId()
       // 请求到期矿机函数执行
       await this.goToExpire()
       // 请求正常矿机函数执行
       await this.goToNormal()
     },
     methods: {
+      // 获取本地缓存的user_id
+      async getUserId() {
+        this.userId = localStorage.getItem('user_id');
+      },
       // tab标签切换函数
       toggleTabs: function (index) {
         this.nowIndex = index;
@@ -103,8 +109,8 @@
       async goToExpire() {
         let param = {
           service: 'userMinerList',
-          user_id:'83',
-          status:'1'
+          user_id: this.userId,
+          status: '1'
 
         };
         let res = await api.PostHome(param);
@@ -115,8 +121,8 @@
       async goToNormal() {
         let param = {
           service: 'userMinerList',
-          user_id:'112',
-          status:'0'
+          user_id: this.userId,
+          status: '0'
         };
         let res = await api.PostHome(param);
         this.normaList = res.data.miner_list;
@@ -191,7 +197,7 @@
   }
 
   .img_title {
-    margin-left:.3rem;
+    margin-left: .3rem;
     display flex;
     flex-direction: column;
     justify-content: center;

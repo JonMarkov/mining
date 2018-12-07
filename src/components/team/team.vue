@@ -50,15 +50,21 @@
     // 进入页面开始调用 （async用于声明一个函数是异步的）
     async created() {
       // 等待异步完成调用 （await只能在async函数中使用）
+      // 请求本地缓存userId函数执行
+      await this.getUserId()
       // 请求我的直推函数执行
       await this.goToTeam()
     },
     methods: {
+      // 获取本地缓存的user_id
+      async getUserId() {
+        this.userId = localStorage.getItem('user_id');
+      },
       // 请求接口-我的直推
       async goToTeam() {
         let param = {
           service: 'directInvitation',
-          user_id:'112'
+          user_id:this.userId
         };
         let res = await api.PostHome(param);
         this.teamList = res.data.direct_list;
