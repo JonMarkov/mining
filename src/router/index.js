@@ -27,6 +27,16 @@ const router = new Router({
         title: '登录'
       }
     },
+    // 修改密码
+    {
+      path: '/modify',
+      name: 'modify',
+      component: () => import('@/components/modify/modify'),
+      meta: {
+        auth: needAuth,
+        title: '修改密码'
+      }
+    },
     // 注册页面
     {
       path: '/signUp',

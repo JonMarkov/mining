@@ -154,12 +154,24 @@
         }
         console.log(this.myMobile)
         let param = {
-          service: 'login',
-          login_name: this.login_name,
-          password: this.password
+          service: 'userRegister',
+          login_name: this.myMobile,
+          password: this.myMima,
+          superior_phone:this.refereeMobile,
+          real_name:this.myName,
+          alipay_num:this.myPay,
+          pay_password:this.myTwoMima,
+          identifyCode:this.myYanzheng
         };
         let res = await api.PostHome(param);
         this.loginDes = res.data
+        if(this.loginDes.result_code==0){
+          this.$router.push({
+            name: 'login'
+          })
+        }else {
+          alert(this.loginDes.result_desc)
+        }
         console.log(res)
       },
     }
