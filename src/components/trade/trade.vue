@@ -18,14 +18,15 @@
         <div class="ma-1">合计金额/美元</div>
         <div class="ma-5">操作</div>
       </div>
-      <div class="am_content" v-for="item in tradeList">
-        <div class="ma-1">136****7039</div>
-        <div class="ma-2">刘*东</div>
-        <div class="ma-1">未认证</div>
+      <div class="am_content" v-for="item in tradeList" v-if="tradeList.length">
+        <div class="ma-1">{{item.buyNum}}</div>
+        <div class="ma-2">{{item.coinPrice}}</div>
+        <div class="ma-1">{{item.buyNum*item.coinPrice|keepTwoNum}}</div>
         <div class="ma-5">
-          <button class="am-btn am-btn-primary am-btn-xs">卖给他</button>
+          <button class="am-btn am-btn-primary am-btn-xs" @click="toBuyClick(item)">卖给他</button>
         </div>
       </div>
+      <div v-if="tradeList.length==0" class="noTime">暂无数据</div>
     </div>
     <!--买入YUE-->
     <div class="divTab" v-show="nowIndex===1">
@@ -185,7 +186,17 @@
       // 请求卖出列表函数执行
       await this.goToSellUpList()
     },
+    filters: {
+      keepTwoNum: function (value) {
+        value = Number(value);
+        return value.toFixed(2);
+      }
+    },
     methods: {
+      // 获取本地缓存的user_id
+      async getUserId() {
+        this.userId = localStorage.getItem('user_id');
+      },
       // tab标签切换函数
       toggleTabs: function (index) {
         this.nowIndex = index;
@@ -193,46 +204,52 @@
       // 请求接口-交易大厅
       async goToTrade() {
         let param = {
-          service: 'goodsInfoList'
+          service: 'exchangeHall',
+          user_id: this.userId
         };
         let res = await api.PostHome(param);
-        this.tradeList = res.data.goodsInfoList;
-        console.log(res)
+        this.tradeList = res.data.buyOrderList;
+      },
+      //卖给他请求函数
+      toBuyClick(item) {
+        console.log(item)
       },
       // 买入列表
       async goToBuy() {
         let param = {
-          service: 'goodsInfoList'
+          service: 'buyOrderList',
+          user_id: this.userId
         };
         let res = await api.PostHome(param);
-        this.buy = res.data.goodsInfoList;
+        this.buy = res.data.buyOrderList;
+        console.log(123)
         console.log(res)
       },
       // 买入交易列表
       async goToBuyList() {
         let param = {
-          service: 'goodsInfoList'
+          service: 'exchangeHall'
         };
         let res = await api.PostHome(param);
-        this.buyList = res.data.goodsInfoList;
+        this.buyList = res.data.exchangeHall;
         console.log(res)
       },
       // 卖出列表
       async goToSellUp() {
         let param = {
-          service: 'goodsInfoList'
+          service: 'exchangeHall'
         };
         let res = await api.PostHome(param);
-        this.sellUp = res.data.goodsInfoList;
+        this.sellUp = res.data.exchangeHall;
         console.log(res)
       },
       // 卖出交易列表
       async goToSellUpList() {
         let param = {
-          service: 'goodsInfoList'
+          service: 'exchangeHall'
         };
         let res = await api.PostHome(param);
-        this.sellUpList = res.data.goodsInfoList;
+        this.sellUpList = res.data.exchangeHall;
         console.log(res)
       },
     }
@@ -245,6 +262,15 @@
 
   .trade {
     margin-top 50px
+  }
+
+  .noTime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 20px;
+    color: #ccc;
   }
 
   .tabs {
