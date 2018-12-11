@@ -1,5 +1,4 @@
 <template>
-
   <div class="am-form login">
     <div class="logo">
       <img src="../../assets/logo.png"/>
@@ -72,13 +71,14 @@
         } else {
           alert('登录名或密码错误')
         }
-        console.log(res)
       },
+      // 注册新用户
       async goToSignUp() {
         this.$router.push({
           name: 'signUp'
         })
       },
+      // 忘记密码
       async goToModify() {
         this.$router.push({
           name: 'modify'
