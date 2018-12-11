@@ -10,7 +10,8 @@
       <div class="res-item">
         <input type="text" placeholder="请输入短信验证码" class="input-item my-yanzheng" v-model="myYanzheng"/>
         <i class="res-icon am-icon-mobile"></i>
-        <button type="button" class="yanzhengma">获取验证码</button>
+        <button v-show="sendGetCode" type="button" class="yanzhengma" @click="getCode()">获取验证码</button>
+        <button v-show="!sendGetCode" type="button" class="yanzhengmc">{{auth_time}}秒之重新发送验证码</button>
       </div>
       <!--请输入姓名-->
       <div class="res-item">
@@ -47,6 +48,7 @@
         <input type="tel" placeholder="请输入推荐人手机号" class="input-item referee-mobile" v-model="refereeMobile">
         <i class="res-icon am-icon-phone-square"></i>
       </div>
+      <!--注册协议内容-->
       <blockquote>
         <b>尊敬的EPC原始矿工请认真阅读以下规则：</b><br/>
         <span>【1】年龄范围18至70周岁，不用上传手持照片，注册帐号必须是本人银行卡绑定手机号码，系统自动审核并秒发放矿机。</span><br/>
@@ -62,7 +64,6 @@
           </label>
         </div>
       </blockquote>
-
       <!--提交按钮-->
       <div class="res-btn">
         <button type="button" id="res-btn" class="am-btn am-btn-block" @click="goToSignUp()">注册新会员</button>
@@ -89,6 +90,8 @@
       return {
         selected: 'signUp',
         topBatten: "注册新用户",
+        sendGetCode:true,
+        auth_time:0,
         // 手机号
         myMobile: '',
         // 验证码
@@ -152,7 +155,6 @@
           alert('两次二级密码输入不一致')
           return
         }
-        console.log(this.myMobile)
         let param = {
           service: 'userRegister',
           login_name: this.myMobile,
@@ -172,8 +174,32 @@
         }else {
           alert(this.loginDes.result_desc)
         }
-        console.log(res)
       },
+      // 请求接口-获取验证码
+      async getCode(){
+        // 手机号判断
+        if (!this.myMobile || !(/^1[34578]\d{9}$/.test(this.myMobile))) {
+          alert('请输入正确的手机号')
+          return
+        };
+        // 点击之后执行倒计时部分
+        this.sendGetCode = false;
+        this.auth_time = 6;
+        var auth_timetimer =  setInterval(()=>{
+          this.auth_time--;
+          if(this.auth_time<=0){
+            this.sendGetCode = true;
+            clearInterval(auth_timetimer);
+          }
+        }, 1000);
+        // 请求发送验证码接口部分
+        let param = {
+          service: 'sendSMSCode',
+          login_name: this.myMobile,
+        };
+        let res = await api.PostHome(param);
+        this.loginDes = res.data
+      }
     }
   }
 </script>
@@ -245,6 +271,19 @@
     font-size: 14px;
     border: none;
     background-color: #3d9ff6;
+    color: #fff;
+    border-radius: 8px;
+  }
+  .yanzhengmc{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    z-index: 100;
+    display: inline-block;
+    padding: 0.5rem 0.8rem;
+    font-size: 14px;
+    border: none;
+    background-color: #ccc;
     color: #fff;
     border-radius: 8px;
   }
