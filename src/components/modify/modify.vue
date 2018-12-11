@@ -24,10 +24,9 @@
       <button type="button" class="yanzhengma">获取验证码</button>
     </div>
 
-
     <!--提交按钮-->
     <div class="res-btn">
-      <button type="button" id="res-btn" class="am-btn am-btn-block" @click="goToSignUp()">找回密码</button>
+      <button type="button" id="res-btn" class="am-btn am-btn-block" @click="goToForget()">找回密码</button>
     </div>
   </div>
   <!--公用头部-->
@@ -56,7 +55,45 @@
         }
       },
       methods:{
-
+        // 请求接口-密码重置
+        async goToForget() {
+          // 手机号判断
+          if (!this.myMobile || !(/^1[34578]\d{9}$/.test(this.myMobile))) {
+            alert('请输入正确的手机号')
+            return
+          }
+          // 登录密码输入判断
+          if(!this.myMima||this.myMima.length>20||this.myMima.length<8||!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/.test(this.myMima))){
+            alert('登录密码必需大于8位小于20位且字母和数字组合')
+            return
+          }
+          // 确认登录密码输入判断
+          if(this.myRepeatmima != this.myMima){
+            alert('两次二级密码输入不一致')
+            return
+          }
+          // 验证码判断
+          if (!this.myYanzheng) {
+            alert('请输入验证码')
+            return
+          }
+          let param = {
+            service: 'forgetPassword',
+            login_name: this.myMobile,
+            password: this.myMima,
+            identifyCode:this.myYanzheng
+          };
+          let res = await api.PostHome(param);
+          this.loginDes = res.data
+          if(this.loginDes.result_code==0){
+            alert('修改成功')
+            this.$router.push({
+              name: 'login'
+            })
+          }else {
+            alert(this.loginDes.result_desc)
+          }
+        }
       }
     }
 </script>
